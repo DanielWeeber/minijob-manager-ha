@@ -53,7 +53,12 @@ ACCOUNT_SENSORS: tuple[MinijobSensorDescription, ...] = (
         key="employees",
         translation_key="employees",
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d["partner"]["mjmDaten"]["anzahlBeschaeftigter"],
+        # portal field anzahlBeschaeftigter is 0 for household employers
+        value_fn=lambda d: sum(
+            1
+            for e in d["employees"]
+            if not e.get("endeDatum") or e["endeDatum"][:10] >= date.today().isoformat()
+        ),
     ),
     MinijobSensorDescription(
         key="unread_messages",

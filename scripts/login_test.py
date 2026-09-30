@@ -12,6 +12,8 @@ import types
 from pathlib import Path
 
 import aiohttp
+import certifi
+import ssl
 
 base = Path(__file__).resolve().parent.parent / "custom_components" / "minijob_manager"
 pkg = types.ModuleType("mm")
@@ -33,7 +35,9 @@ const, api = load("const"), load("api")
 async def main() -> None:
     user = input("E-Mail: ")
     pw = getpass.getpass("Passwort: ")
-    async with aiohttp.ClientSession() as s:
+    # like Home Assistant: use certifi (the macOS system bundle lacks the Telekom 2023 root)
+    ctx = ssl.create_default_context(cafile=certifi.where())
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ctx)) as s:
         login = api.MinijobLogin(s)
         await login.start(user, pw)
         print("Passwort ok, Code per E-Mail unterwegs")

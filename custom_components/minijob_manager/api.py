@@ -5,6 +5,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import html
+import json
 import re
 import secrets
 import time
@@ -49,6 +50,16 @@ def parse_form_action(page: str) -> str | None:
     """Return the action URL of the Keycloak login form."""
     match = _FORM_ACTION.search(page)
     return html.unescape(match.group(1)) if match else None
+
+
+def gp_id_from_token(access_token: str) -> str:
+    """Business partner id the portal expects in the `gp-id` header."""
+    try:
+        payload = access_token.split(".")[1]
+        claims = json.loads(base64.urlsafe_b64decode(payload + "=" * (-len(payload) % 4)))
+        return str(claims["gprollen"][0]["geschaeftspartnerId"])
+    except (IndexError, KeyError, ValueError) as err:
+        raise MinijobAuthError("No business partner in token") from err
 
 
 def tokens_from_response(data: dict[str, Any]) -> dict[str, Any]:
@@ -191,6 +202,7 @@ class MinijobClient:
                     "Authorization": f"Bearer {self.tokens['access_token']}",
                     "Accept": "application/json",
                     "Origin": PORTAL_ORIGIN,
+                    "gp-id": gp_id_from_token(self.tokens["access_token"]),
                 },
                 timeout=_TIMEOUT,
             ) as resp:
