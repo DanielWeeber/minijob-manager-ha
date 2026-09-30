@@ -1,0 +1,72 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Minijob-Manager",
+        "description": "Credentials for minijob-manager.de. The portal then e-mails a code.",
+        "data": {
+          "username": "E-mail",
+          "password": "Password"
+        }
+      },
+      "otp": {
+        "title": "Verification code",
+        "description": "Enter the 6-digit code from the Minijob-Zentrale e-mail.",
+        "data": {
+          "code": "Code"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in again",
+        "description": "The session for {username} expired. Enter the password; a new e-mail code follows.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Wrong e-mail or password",
+      "invalid_otp": "Code invalid or expired",
+      "cannot_connect": "Portal not reachable"
+    },
+    "abort": {
+      "already_configured": "This account is already configured",
+      "reauth_successful": "Re-authentication successful",
+      "unique_id_mismatch": "Different account than originally configured"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "balance": {
+        "name": "Account balance"
+      },
+      "employees": {
+        "name": "Employees"
+      },
+      "unread_messages": {
+        "name": "Unread messages"
+      },
+      "notices": {
+        "name": "Portal notices"
+      },
+      "next_due_date": {
+        "name": "Next due date"
+      },
+      "next_due_amount": {
+        "name": "Next contribution"
+      },
+      "sepa_status": {
+        "name": "SEPA mandate"
+      },
+      "employee_monthly": {
+        "name": "Monthly earnings"
+      },
+      "employee_yearly": {
+        "name": "Yearly earnings"
+      },
+      "employee_remaining": {
+        "name": "Remaining until yearly limit"
+      }
+    }
+  }
+}

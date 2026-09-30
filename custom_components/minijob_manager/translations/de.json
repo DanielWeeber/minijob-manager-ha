@@ -1,0 +1,45 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Minijob-Manager",
+        "description": "Zugangsdaten des Portals minijob-manager.de. Anschließend sendet das Portal einen Code per E-Mail.",
+        "data": { "username": "E-Mail", "password": "Passwort" }
+      },
+      "otp": {
+        "title": "Bestätigungscode",
+        "description": "Gib den 6-stelligen Code aus der E-Mail der Minijob-Zentrale ein.",
+        "data": { "code": "Code" }
+      },
+      "reauth_confirm": {
+        "title": "Erneut anmelden",
+        "description": "Die Sitzung für {username} ist abgelaufen. Bitte Passwort eingeben; danach folgt ein neuer E-Mail-Code.",
+        "data": { "password": "Passwort" }
+      }
+    },
+    "error": {
+      "invalid_auth": "E-Mail oder Passwort falsch",
+      "invalid_otp": "Code ungültig oder abgelaufen",
+      "cannot_connect": "Portal nicht erreichbar"
+    },
+    "abort": {
+      "already_configured": "Dieses Konto ist bereits eingerichtet",
+      "reauth_successful": "Erneute Anmeldung erfolgreich",
+      "unique_id_mismatch": "Anderes Konto als ursprünglich eingerichtet"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "balance": { "name": "Kontosaldo" },
+      "employees": { "name": "Beschäftigte" },
+      "unread_messages": { "name": "Ungelesene Nachrichten" },
+      "notices": { "name": "Portalmeldungen" },
+      "next_due_date": { "name": "Nächste Fälligkeit" },
+      "next_due_amount": { "name": "Nächster Beitrag" },
+      "sepa_status": { "name": "SEPA-Mandat" },
+      "employee_monthly": { "name": "Monatsentgelt" },
+      "employee_yearly": { "name": "Jahresentgelt" },
+      "employee_remaining": { "name": "Verbleibend bis Jahresgrenze" }
+    }
+  }
+}
